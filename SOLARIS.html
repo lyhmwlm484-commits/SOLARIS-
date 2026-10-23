@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תנאי שימוש וכללי הקהילה</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0e1015;
+            --card-bg: rgba(26, 29, 38, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent: #5865F2; /* גוון דיסקורד מודרני */
+            --accent-glow: rgba(88, 101, 242, 0.35);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --item-bg: rgba(18, 20, 26, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Assistant', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(88, 101, 242, 0.15), transparent 45%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.08), transparent 35%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 760px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 32px 28px;
+            overflow: hidden;
+        }
+
+        /* כותרת עליונה */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 40%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* תפריט לשוניות קומפקטי */
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            background: rgba(10, 12, 16, 0.6);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 10px 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        /* תוכן הלשוניות */
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* פריטים מתקפלים (Accordions) */
+        .accordion-item {
+            background: var(--item-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .accordion-item:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .accordion-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: right;
+        }
+
+        .icon {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.25s ease;
+        }
+
+        .accordion-item.open .icon {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+            color: #d1d5db;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            padding: 0 18px;
+        }
+
+        .accordion-item.open .accordion-body {
+            max-height: 400px;
+            padding: 0 18px 16px 18px;
+            transition: max-height 0.35s ease-in-out;
+        }
+
+        /* פוטר */
+        .footer {
+            margin-top: 26px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 18px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px;
+            }
+            .tabs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>תנאי שימוש וכללי הקהילה</h1>
+            <p>אנא קרא את ההנחיות והתנאים לפני השימוש בשירותים ובשרת</p>
+        </header>
+
+        <!-- ניווט קטגוריות -->
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">כללי השרת</button>
+            <button class="tab-btn" onclick="switchTab(1)">תנאי שימוש</button>
+            <button class="tab-btn" onclick="switchTab(2)">פרטיות</button>
+            <button class="tab-btn" onclick="switchTab(3)">החזרים</button>
+        </nav>
+
+        <!-- 1. כללי השרת -->
+        <section class="tab-content active" id="tab-0">
+            <div class="accordion-item open">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. שמירה על כבוד הדדי ושפה נאותה</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    אין לקלל, להעליב, לפגוע או להטריד משתמשים אחרים. שיח שנאה, גזענות והטרדה מכל סוג יגררו הרחקה מידית ללא אזהרה.
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. איסור פרסום וספאם</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    חל איסור מוחלט על שליחת קישורי שרתים, קישורים לא מאומתים, קישורי שותפים או פרסומות בצ'אטים הציבוריים ובפרטי (DMs).
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>3. ציות לצוות הניהול</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    החלטות צוות הניהול והמודרציה הן סופיות. אין להתווכח עם מנהלים בצ'אט הציבורי – במידה וישנה השגה ניתן לפתוח טיקט מסודר.
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. תנאי שימוש -->
+        <section class="tab-content" id="tab-1">
+            <div class="accordion-item open">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. הסכמה לתנאים</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    הצטרפות לשרת ושימוש בשירותים, בלאנצ'ר או בקבצים מהווים הסכמה מלאה לכל התנאים המפורטים כאן.
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. איסור ניצול באגים וצ'יטים</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    כל שימוש בתוכנות צד שלישי (Cheats/Hacks/Exploits) אסור בהחלט ויוביל לבאן לצמיתות מכלל השירותים והשרתים שלנו.
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>3. אחריות על החשבון</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    המשתמש אחראי באופן בלעדי על אבטחת חשבונו והפעולות המבוצעות מתוכו. אין לשתף פרטי גישה עם צדדים שלישיים.
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. פרטיות -->
+        <section class="tab-content" id="tab-2">
+            <div class="accordion-item open">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. איסוף מידע בסיסי</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    אנו שומרים אך ורק מידע טכני בסיסי הנדרש לפעילות התקינה של השירותים (כגון מזהה דיסקורד וכתובת IP בסיסית לאבטחה מפני מתקפות).
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. הגנה על המידע</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    המידע שלכם לעולם לא יימכר, יושכר או יועבר לגורמים חיצוניים ללא הסכמתכם המפורשת, למעט במקרים הנדרשים לפי חוק.
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. החזרים -->
+        <section class="tab-content" id="tab-3">
+            <div class="accordion-item open">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. מוצרים דיגיטליים ותרומות</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    כל הרכישות והתרומות הינן סופיות עבור פריטים דיגיטליים, דרגות או שירותים שהופעלו, ולא יינתן בגינן החזר כספי (No Refunds).
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. עונשים וחסימות (Bans)</span>
+                    <span class="icon">▼</span>
+                </button>
+                <div class="accordion-body">
+                    משתמש שהורחק או נחסם עקב הפרת כללי השרת או תנאי השימוש אינו זכאי להחזר כספי או פיצוי כלשהו על תשלום שבוצע בעבר.
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            עודכן לאחרונה: אוקטובר 2026 • זקוק לעזרה? פתח טיקט בשרת הדיסקורד
+        </footer>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+
+            contents.forEach((content, i) => {
+                content.classList.toggle('active', i === index);
+            });
+        }
+
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            item.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
